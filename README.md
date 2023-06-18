@@ -4,7 +4,7 @@ TASK: Write a script that will get the content of the block below. The script mu
 
 ## How It's Made:
 
-**Tech used:** <p>![NODEJS BADGE](https://img.shields.io/static/v1?label=|&message=NODEJS&color=23555f&style=plastic&logo=node.js) ![PUPPETEER BADGE](https://img.shields.io/static/v1?label=|&message=CSS3&color=285f65&style=plastic&logo=puppeteer)</p>
+**Tech used:** <p>![NODEJS BADGE](https://img.shields.io/static/v1?label=|&message=NODEJS&color=23555f&style=plastic&logo=node.js) ![PUPPETEER BADGE](https://img.shields.io/static/v1?label=|&message=PUPPETEER&color=285f65&style=plastic&logo=puppeteer)</p>
 
 ## Optimizations
 
