@@ -1,35 +1,32 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
-(async () => {
+async function run() {
   const browser = await puppeteer.launch({
     headless: false,
     args: ["--proxy-bypass-list=<-loopback>"],
   });
-  const page = await browser.newPage();
-  page.on("requestfailed", (request) => {
-    console.log(
-      `url: ${request.url()}, errText: ${
-        request.failure().errorText
-      }, method: ${request.method()}`
+  try {
+    const page = await browser.newPage();
+    await page.setUserAgent(
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/557.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
     );
-  });
-  // Catch console log errors
-  page.on("pageerror", (err) => {
-    console.log(`Page error: ${err.toString()}`);
-  });
-  // Catch all console messages
-  page.on("console", (msg) => {
-    console.log("Logger:", msg.type());
-    console.log("Logger:", msg.text());
-    console.log("Logger:", msg.location());
-  });
-  await page.goto("https://dev.amidstyle.com", { waitUntil: "networkidle0" });
-  // await page.waitForSelector("#data", { timeout: 5_000 });
 
-  // const getJson = await page.evaluate(() => {
-  //   const tag = document.querySelector("#data");
-  //   return tag.innerText;
-  // });
-  // console.log("res =>", getJson);
-  // await browser.close();
-})();
+    await page.goto("https://dev.amidstyle.com", { waitUntil: "networkidle0" });
+    await page.waitForTimeout(5000);
+    const getJson = await page.evaluate(() => {
+      const tag = document.querySelector("#data");
+      return tag.innerText;
+    });
+    console.log(getJson);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await browser.close();
+  }
+}
+
+run();
+
+
