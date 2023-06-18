@@ -4,7 +4,7 @@ puppeteer.use(StealthPlugin());
 
 async function run() {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--proxy-bypass-list=<-loopback>"],
   });
   try {
@@ -19,7 +19,8 @@ async function run() {
       const tag = document.querySelector("#data");
       return tag.innerText;
     });
-    console.log(getJson);
+    // console.log(getJson); //uncomment if headless: false
+    return getJson
   } catch (error) {
     console.log(error);
   } finally {
@@ -28,5 +29,3 @@ async function run() {
 }
 
 run();
-
-
